@@ -10,17 +10,22 @@
                         <form action="{{ route('media.update', $media->id) }}" method="post" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
-                            <div class="mb-3">
+                            <div class="row">
+                            <div class="mb-3 col">
                                 <label for="media" class="form-label">Media</label>
-                                <input type="file"  name="media" class="form-control" id="media">
+                                <input type="file" required name="media"  class="form-control" id="media">
                             </div>
+                                <div class="col">
+                                    <img width="80px" src="{{ asset('uploads/'.$media->media)}}" alt="">
+                                </div>
+                                </div>
                             <div class="mb-3">
                                 <label for="media" class="form-label">Category</label>
-                                        @dd($media)
-                                <select name="categories_id" class="form-select" id="">
-                                    <option value="">Select category</option>
+
+                                <select name="categories_id" required class="form-select" id="">
+                                    <option></option>
                                     @foreach($categories as $id => $category)
-                                        <option value=" @if(in_array($id,$media->category->pluck('id')->toArray())) selected @endif {{$id}}">{{$category}}</option>
+                                        <option  @if($id==$media->categories_id) selected @endif  value=" {{$id}} ">{{$category}}</option>
                                     @endforeach
                                 </select>
                             </div>

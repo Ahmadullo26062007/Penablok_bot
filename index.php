@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $botToken = "6196969547:AAGuy11HKRdm6YCeVR6tRTzGbgmrwW8zW9w";
 
-// https://api.telegram.org/bot6196969547:AAGuy11HKRdm6YCeVR6tRTzGbgmrwW8zW9w/setWebhook?url=https://399a-213-230-118-118.eu.ngrok.io/webteam5/bot/index.php
+// https://api.telegram.org/bot6196969547:AAGuy11HKRdm6YCeVR6tRTzGbgmrwW8zW9w/setWebhook?url=https://fc6a-185-139-139-249.ap.ngrok.io/Penablok_bot/index.php
 
 /**
  * @var $bot Client | BotApi
@@ -21,24 +21,13 @@ $bot->command('start', static function (\TelegramBot\Api\Types\Message $message)
     try {
         $chat_id = $message->getChat()->getId();
         $db = mysqli_connect('localhost', 'user', 'password', 'penablok');
-        $categories=$db->query("select title from categories")->fetch_all();
-        $keyboard=[];
+        $categories = $db->query("select title from categories")->fetch_all();
+        $keyboard = [];
 
-        $uzunlik =count(array_chunk($categories,2) );
-        foreach (array_chunk($categories,2) as $key => $item) {
-
-            if(count($item)==2){
-                if($key==($uzunlik-1)){
-
-                    $keyboard[]=[['text'=>$item[0][0]]];
-                }else{
-                    if($key==($uzunlik-1)){
-                        $keyboard[]=[['text'=>$item[0][0]]];
-                    }else{
-                    $keyboard[]=[['text'=>$item[0][0]]];
-                }
-            }
-            }}
+        foreach ($categories as $item) {
+            $keyboard[]=[['text'=> $item ]];
+            var_dump($item);
+        }
         $markup = new \TelegramBot\Api\Types\ReplyKeyboardMarkup($keyboard, null, true);
         $bot->sendMessage($chat_id, 'salom', "HTML", false, null, null, $markup);
 
@@ -59,7 +48,7 @@ $bot->on(static function () {
         $db = mysqli_connect('localhost', 'user', 'password', 'penablok');
         $text = $update->getMessage()->getText();
         $chat_id = $update->getMessage()->getChat()->getId();
-        $raqam='Raqamni yuborish';
+        $raqam = 'Raqamni yuborish';
         if (in_array($text)) {
             $user_bormi = $db->query("select chat_id from bot where chat_id = '$chat_id'")->num_rows;
             if ($user_bormi == 0) {
@@ -67,15 +56,16 @@ $bot->on(static function () {
             }
             $raqam_bormi = $db->query("select phone_number from bot where chat_id = '$chat_id'")->fetch_assoc();
             if ($raqam_bormi['phone_number'] == null) {
-                $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[['text' => "📞 Raqamni yuborish" , 'request_contact' => true]]], true, true);
+                $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[['text' => "📞 Raqamni yuborish", 'request_contact' => true]]], true, true);
                 $bot->sendMessage($chat_id, '📞 Raqamni yuborish', null, false, null, $keyboard);
 
-            } }else {
-                $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([
-                    [['text' => 'sd']]
-                ], true, true);
+            }
+        } else {
+            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([
+                [['text' => 'sd']]
+            ], true, true);
 
-                $bot->sendMessage($chat_id, "Menu", null, false, null, $keyboard);
+            $bot->sendMessage($chat_id, "Menu", null, false, null, $keyboard);
 
 
         }

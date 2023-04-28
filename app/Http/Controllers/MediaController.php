@@ -13,7 +13,7 @@ class MediaController extends Controller
      */
     public function index()
     {
-        $media=Media::with('category')->orderByDesc('id')->get();
+        $media=Media::with('categories')->orderByDesc('id')->get();
         return view('admin.media.index',compact('media'));
     }
 
@@ -31,6 +31,9 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'categories_id'=>'required'
+        ]);
         $data = $request->all();
         $file = $request->file('media');
         $image_name = uniqid() . $file->getClientOriginalName();
@@ -44,9 +47,11 @@ class MediaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Media $media)
+    public function show(string $id)
     {
-        dd($media);
+        $media=Media::find($id);
+        return view('admin.media.show',compact('media'));
+
     }
 
     /**
@@ -62,9 +67,22 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Media $media)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'categories_id'=>'required'
+        ]);
+        $media=Media::find($id);
+        $data = $request->all();
+
+            $file = $request->file('media');
+            $image_name = uniqid() . $file->getClientOriginalName();
+            $data['media'] = $image_name;
+            $file->move(public_path('uploads'), $image_name);
+            $media->update($data);
+
+
+        return redirect()->route('media.index');
     }
 
     /**

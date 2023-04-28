@@ -13,7 +13,7 @@ class Media extends Model
         'categories_id'
     ];
 
-    public function category()
+    public function categories()
     {
         return $this->belongsTo(Categories::class);
     }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <main class="content">
-        <h1 class="h3 mb-3"><strong>Cetegory</strong> Details</h1>
+        <h1 class="h3 mb-3"><strong>Media</strong> Show</h1>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -10,23 +10,26 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Category</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$categories->id}}</td>
+                                    <td>{{$media->id}}</td>
+                                    <td> <img width="80px" src="{{ asset('uploads/'.$media->media)}}" alt="">
+                                   </td>
                                     <td>
                                         <h4>
                                         <span class="badge bg-success">
-                                            {{$categories->title}}
+                                            {{$media->categories->title}}
                                         </span>
                                         </h4>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <a class="btn btn-secondary mt-3" href="{{route('categories.index')}}">
+                        <a class="btn btn-secondary mt-3" href="{{route('media.index')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-arrow-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
