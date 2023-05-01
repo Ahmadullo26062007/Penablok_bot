@@ -6,19 +6,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <img width="300px" src="{{ asset('uploads/'.$media->media)}}" alt="">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Image</th>
                                 <th>Category</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{$media->id}}</td>
-                                    <td> <img width="80px" src="{{ asset('uploads/'.$media->media)}}" alt="">
-                                   </td>
                                     <td>
                                         <h4>
                                         <span class="badge bg-success">

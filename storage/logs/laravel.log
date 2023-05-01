@@ -6925,3 +6925,12 @@
 #53 /var/www/html/Penablok_bot/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #54 {main}
 "} 
+[2023-04-30 07:19:49] local.ERROR: There are no commands defined in the "breeze" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"breeze\" namespace. at /var/www/html/Penablok_bot/vendor/symfony/console/Application.php:632)
+[stacktrace]
+#0 /var/www/html/Penablok_bot/vendor/symfony/console/Application.php(683): Symfony\\Component\\Console\\Application->findNamespace()
+#1 /var/www/html/Penablok_bot/vendor/symfony/console/Application.php(256): Symfony\\Component\\Console\\Application->find()
+#2 /var/www/html/Penablok_bot/vendor/symfony/console/Application.php(168): Symfony\\Component\\Console\\Application->doRun()
+#3 /var/www/html/Penablok_bot/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(200): Symfony\\Component\\Console\\Application->run()
+#4 /var/www/html/Penablok_bot/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 
